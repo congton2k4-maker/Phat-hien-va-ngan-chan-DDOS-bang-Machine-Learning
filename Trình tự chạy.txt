@@ -1,0 +1,41 @@
+// khoi chay floodlight
+sudo java -jar target/floodlight.jar
+
+// chay traffic binh thuong
+python3 mininet/generate_normal_traffic.py
+
+// thu thap traffic bth
+python3 controller/collect_training_stats_floodlight.py --interval 5 --label 0
+
+// chay traffic ddos
+python3 mininet/generate_ddos_traffic.py
+
+// thu thap traffic ddos
+python3 controller/collect_training_stats_floodlight.py --interval 5 --label 1
+
+// train mo hinh machine learning
+python3 machinelearning/ML_trainer.py --csv output/FlowStatsfile.csv
+
+//train xong thi kiem tra hieu nang cua mo hinh ML qua cac file anh
+
+// khoi chay topology
+python3 mininet/topology.py
+
+// chay cac host nho
+xterm h1 h2 h3
+h1: python3 -m http.server 80
+h2: csh mininet/ping.csh
+
+// khoi chay wireshark de xem bieu do traffic truoc khi ddos
+
+// chay ddos ma khong co ML (chay tan cong trong 60s de de quan sat)
+h3: sh mininet/ddos.sh
+
+// chay thu hoach
+python3 collect_realtime_traffic_ml.py 
+
+// chay floodlight realtime
+python3 controller/realtime_floodlight_ML.py --model model.pkl --predict-file /home/lux1dus/DDOS_ML_2025/live_collector/output/PredictFlowStatsfile.csv --interval 3 --detect-window 12 
+
+// chay lai ddos tren h3 lan nay co realtime ML
+
