@@ -183,30 +183,3 @@ Khởi chạy Wireshark (trên máy chạy Mininet / controller):
 ```bash
 sudo wireshark
 ```
-
-Chọn giao diện switch (ví dụ `s1-eth1`). Vào `Statistics → I/O Graph` để xem diễn biến traffic.
-
-## File đầu ra chính
-
-- `output/FlowStatsfile.csv` — dataset training (khi thu thập xong)
-- `model.pkl` — mô hình ML (sau khi huấn luyện)
-- `metadata.pkl` — threshold/features/scaler (sau khi huấn luyện)
-- `output/PredictFlowStatsfile.csv` — dữ liệu realtime để ML predict
-- `source/controller/blocked_rules.json` — (tùy runtime) quy tắc bị chặn
-
-## Ghi chú & khuyến nghị
-
-- Thực hiện thu thập dữ liệu bình thường và DDoS sao cho cân bằng nhãn (label 0 vs 1). DDoS script chạy rất nhanh — giới hạn thời gian chạy để tránh imbalance.
-- Chạy tất cả lệnh trong `source/` để đảm bảo đường dẫn đúng.
-- Nếu Floodlight không hiển thị switch, kiểm tra logs của Floodlight và đảm bảo Mininet kết nối đúng controller (địa chỉ/port).
-- Quyền sudo có thể cần cho Mininet, pcap/Wireshark, hoặc để push flow rules vào switch.
-
-## Muốn mình làm tiếp gì?
-
-- Chạy kiểm tra nhanh (unit/integration) nếu bạn muốn.
-- Tự động hoá quá trình setup (script cài đặt Floodlight / env) — mình có thể viết.
-- Tinh chỉnh threshold hoặc thêm ví dụ config cho `realtime_floodlight_ML.py`.
-
----
-
-Nếu bạn muốn mình cập nhật nội dung README này (ví dụ thêm hình ảnh, ảnh chụp màn hình, hoặc hướng dẫn cài JDK/Floodlight chi tiết), cho biết yêu cầu cụ thể nhé.
