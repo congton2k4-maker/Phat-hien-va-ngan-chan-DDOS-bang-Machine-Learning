@@ -6,8 +6,8 @@
 # Example: ./ddos_no_flood.csh 10.0.0.1 60 12
 
 target=${1:-10.0.0.1}
-duration=${2:-60}
-conc=${3:-10}
+duration=${2:-300}
+conc=${3:-20}
 
 # check curl
 if ! command -v curl >/dev/null 2>&1; then
